@@ -5,21 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zoualmam <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/20 21:28:22 by zoualmam          #+#    #+#             */
-/*   Updated: 2026/07/20 21:47:27 by zoualmam         ###   ########.fr       */
+/*   Created: 2026/07/22 21:15:14 by zoualmam          #+#    #+#             */
+/*   Updated: 2026/07/22 21:29:09 by zoualmam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdio.h>
 
 int	ft_str_is_lowercase(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (str[i] != '\0')
+	while (str [i] != '\0')
 	{
-		if (!(str[i] >= 'a' && str[i] <= 'z'))
+		if (!(str [i] >= 'a' && str[i] <= 'z'))
 		{
 			return (0);
 		}

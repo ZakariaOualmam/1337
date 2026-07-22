@@ -5,12 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zoualmam <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/20 21:48:05 by zoualmam          #+#    #+#             */
-/*   Updated: 2026/07/20 21:56:23 by zoualmam         ###   ########.fr       */
+/*   Created: 2026/07/22 21:15:32 by zoualmam          #+#    #+#             */
+/*   Updated: 2026/07/22 21:15:34 by zoualmam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdio.h>
 
 int	ft_str_is_uppercase(char *str)
 {
@@ -20,9 +18,7 @@ int	ft_str_is_uppercase(char *str)
 	while (str[i] != '\0')
 	{
 		if (!(str[i] >= 'A' && str[i] <= 'Z'))
-		{
 			return (0);
-		}
 		i++;
 	}
 	return (1);

@@ -5,25 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zoualmam <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/20 14:29:27 by zoualmam          #+#    #+#             */
-/*   Updated: 2026/07/20 21:33:43 by zoualmam         ###   ########.fr       */
+/*   Created: 2026/07/22 21:14:38 by zoualmam          #+#    #+#             */
+/*   Updated: 2026/07/22 21:29:40 by zoualmam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <unistd.h>
 
 int	ft_str_is_alpha(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (str[i] != '\0' )
+	while (str[i] != '\0')
 	{
-		if (!((str[i] >= 'a' && str[i] <= 'z')
-				|| (str[i] >= 'A' && str[i] <= 'Z')))
-		{
+		if (!((str[i] >= 'A' && str[i] <= 'Z')
+				|| (str[i] >= 'a' && str[i] <= 'z')))
 			return (0);
-		}
 		i++;
 	}
 	return (1);

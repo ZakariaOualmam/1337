@@ -5,12 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zoualmam <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/20 21:08:56 by zoualmam          #+#    #+#             */
-/*   Updated: 2026/07/20 21:34:19 by zoualmam         ###   ########.fr       */
+/*   Created: 2026/07/22 21:14:56 by zoualmam          #+#    #+#             */
+/*   Updated: 2026/07/22 21:28:41 by zoualmam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdio.h>
 
 int	ft_str_is_numeric(char *str)
 {
@@ -19,7 +17,7 @@ int	ft_str_is_numeric(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (!(str[i] >= '0' && str[i] <= '9'))
+		if (!(str[i] <= '9' && str[i] >= '0'))
 		{
 			return (0);
 		}
