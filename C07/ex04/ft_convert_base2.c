@@ -3,65 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   ft_convert_base2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idouiri <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: zoualmam <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/26 18:21:15 by idouiri           #+#    #+#             */
-/*   Updated: 2026/07/26 18:38:40 by idouiri          ###   ########.fr       */
+/*   Created: 2026/08/06 21:10:46 by zoualmam          #+#    #+#             */
+/*   Updated: 2026/08/06 21:14:36 by zoualmam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(char *str)
+int	ft_check(char *base)
+{
+	int	i;
+	int	k;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (base[i])
+		i++;
+	if (i < 2)
+		return (0);
+	while (base[j])
+	{
+		k = j + 1;
+		if (base[j] == 32 || (base[j] >= 9 && base[j] <= 13)
+			|| base[j] == 43 || base[j] == 45)
+			return (0);
+		while (base[k])
+		{
+			if (base[j] == base[k])
+				return (0);
+			k++;
+		}
+		j++;
+	}
+	return (i);
+}
+
+int	ft_skip(char *str)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
-		i++;
+	{
+		if (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+			i++;
+		else
+			return (i);
+	}
 	return (i);
 }
 
-int	is_space(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\r'
-		|| c == '\n' || c == '\f' || c == '\v')
-		return (1);
-	return (0);
-}
-
-int	is_valid_base(char *base)
-{
-	int	history[256];
-	int	i;
-
-	if (ft_strlen(base) < 2)
-		return (0);
-	i = 0;
-	while (i < 256)
-	{
-		history[i] = 0;
-		i++;
-	}
-	while (*base)
-	{
-		if (*base == '+' || *base == '-'
-			|| *base <= ' ' || *base == 127)
-			return (0);
-		if (history[(unsigned char)(*base)] == 1)
-			return (0);
-		history[(unsigned char)(*base)] = 1;
-		base++;
-	}
-	return (1);
-}
-
-int	ft_find_char(char needle, char *haystack)
+int	ft_index(char s, char *base)
 {
 	int	i;
 
 	i = 0;
-	while (haystack[i])
+	while (base[i])
 	{
-		if (needle == haystack[i])
+		if (base[i] == s)
 			return (i);
 		i++;
 	}
@@ -70,27 +70,29 @@ int	ft_find_char(char needle, char *haystack)
 
 int	ft_atoi_base(char *str, char *base)
 {
-	int		base_len;
-	int		sign;
-	long	res;
+	int	i;
+	int	j;
+	int	ind;
+	int	nb;
 
-	res = 0;
-	sign = 1;
-	base_len = ft_strlen(base);
-	if (!is_valid_base(base) || base_len < 2)
+	j = 1;
+	nb = 0;
+	i = ft_skip(str);
+	if (ft_check(base) == 0)
 		return (0);
-	while (is_space(*str))
-		str++;
-	while (*str == '+' || *str == '-')
+	while (str[i] == 45 || str[i] == 43)
 	{
-		if (*str == '-')
-			sign = -sign;
-		str++;
+		if (str[i] == 45)
+			j = -j;
+		i++;
 	}
-	while (*str && ft_find_char(*str, base) != -1)
+	while (str[i])
 	{
-		res = res * base_len + ft_find_char(*str, base);
-		str++;
+		ind = ft_index(str[i], base);
+		if (ind == -1)
+			break ;
+		nb = nb * ft_check(base) + ind;
+		i++;
 	}
-	return ((int)(res * sign));
+	return (nb * j);
 }

@@ -3,70 +3,70 @@
 /*                                                        :::      ::::::::   */
 /*   ft_convert_base.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idouiri <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: zoualmam <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/26 11:07:53 by idouiri           #+#    #+#             */
-/*   Updated: 2026/07/26 18:41:02 by idouiri          ###   ########.fr       */
+/*   Created: 2026/08/06 21:11:10 by zoualmam          #+#    #+#             */
+/*   Updated: 2026/08/06 21:14:15 by zoualmam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
 
-int	ft_strlen(char *str);
+#include<stdlib.h>
+
 int	ft_atoi_base(char *str, char *base);
-int	is_valid_base(char *base);
+int	ft_check(char *base);
 
-void	ft_getnbr_base(char *buffer, int len, int nbr, char *base)
+int	check_len(long nb, char *base_to)
 {
-	unsigned int	base_len;
-	long			unbr;
+	int	i;
+	int	base;
 
-	base_len = ft_strlen(base);
-	buffer[--len] = '\0';
-	unbr = nbr;
-	if (nbr < 0)
+	i = 0;
+	base = ft_check(base_to);
+	if (nb < 0)
 	{
-		buffer[0] = '-';
-		unbr *= -1;
+		i++;
+		nb = -nb;
 	}
-	if (unbr == 0)
-		buffer[--len] = base[0];
-	while (unbr > 0)
+	while (nb != 0)
 	{
-		buffer[--len] = base[unbr % base_len];
-		unbr /= base_len;
+		nb = nb / base;
+		i++;
 	}
+	return (i);
 }
 
-int	get_nbr_len_base(long nbr, int base_len)
+char	*ft_fill(char *s, char *base_to)
 {
-	int	len;
-
-	if (nbr < base_len)
-		return (1);
-	len = 1;
-	return (len + get_nbr_len_base(nbr / base_len, base_len));
+	s[0] = base_to[0];
+	s[1] = '\0';
+	return (s);
 }
 
 char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 {
-	int		dec_nbr;
-	int		output_len;
-	long	abs_dec_nbr;
-	char	*output;
+	long		nb;
+	int			len_nb;
+	char		*st;
 
-	if (!is_valid_base(base_from) || !is_valid_base(base_to))
+	nb = ft_atoi_base(nbr, base_from);
+	len_nb = check_len(nb, base_to);
+	if (ft_check(base_to) == 0 || ft_check(base_from) == 0)
 		return (NULL);
-	dec_nbr = ft_atoi_base(nbr, base_from);
-	abs_dec_nbr = dec_nbr;
-	if (dec_nbr < 0)
-		abs_dec_nbr *= -1;
-	output_len = get_nbr_len_base(abs_dec_nbr, ft_strlen(base_to));
-	if (dec_nbr < 0)
-		output_len++;
-	output_len++;
-	output = malloc(output_len);
-	if (output == NULL)
+	st = malloc((len_nb + 1) * sizeof(char));
+	if (st == NULL)
 		return (NULL);
-	ft_getnbr_base(output, output_len, dec_nbr, base_to);
-	return (output);
+	if (nb == 0)
+		return (ft_fill(st, base_to));
+	if (nb < 0)
+	{
+		nb = -nb;
+		st[0] = '-';
+	}
+	st[len_nb--] = '\0';
+	while (nb != 0)
+	{
+		st[len_nb--] = base_to[nb % ft_check(base_to)];
+		nb = nb / ft_check(base_to);
+	}
+	return (st);
 }

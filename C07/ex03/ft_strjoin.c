@@ -3,79 +3,102 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idouiri <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: zoualmam <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/26 08:39:15 by idouiri           #+#    #+#             */
-/*   Updated: 2026/07/26 10:58:59 by idouiri          ###   ########.fr       */
+/*   Created: 2026/08/06 21:10:20 by zoualmam          #+#    #+#             */
+/*   Updated: 2026/08/06 21:13:20 by zoualmam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-int	ft_strlen(char *str)
+int	size_sep(char *sep)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (sep[i] != '\0')
+	{
 		i++;
+	}
 	return (i);
 }
 
-int	get_strs_len(char **strs, int size)
+int	size_strs(char **strs, int count)
 {
+	int	j;
 	int	i;
-	int	len_total;
+	int	s;
 
 	i = 0;
-	len_total = 0;
-	while (i < size)
+	s = 0;
+	while (i < count)
 	{
-		len_total += ft_strlen(strs[i]);
+		j = 0;
+		while (strs[i][j])
+		{
+			s++;
+			j++;
+		}
 		i++;
 	}
-	return (len_total);
+	return (s);
 }
 
-char	*ft_strcat(char *dest, char *src)
+void	ft_fill(int size, char **strs, char *st, char *sep)
 {
 	int	i;
+	int	j;
+	int	k;
 
 	i = 0;
-	while (dest[i])
-		i++;
-	while (*src)
+	k = 0;
+	while (i < size)
 	{
-		dest[i] = *src;
+		j = 0;
+		while (strs[i][j])
+			st[k++] = strs[i][j++];
 		i++;
-		src++;
+		if (i < size)
+		{
+			j = 0;
+			while (sep[j])
+				st[k++] = sep[j++];
+		}
 	}
-	dest[i] = '\0';
-	return (dest);
+	st[k] = '\0';
 }
 
 char	*ft_strjoin(int size, char **strs, char *sep)
 {
-	int		i;
-	char	*buffer;
+	int		a;
+	int		b;
+	char	*st;
 
-	if (size <= 0)
+	a = size_strs(strs, size);
+	b = size_sep(sep);
+	if (size == 0)
 	{
-		buffer = malloc(1);
-		if (buffer)
-			buffer[0] = '\0';
-		return (buffer);
+		st = malloc(sizeof(char));
+		if (st == NULL)
+			return (NULL);
+		st[0] = '\0';
+		return (st);
 	}
-	buffer = malloc(get_strs_len(strs, size) + (size - 1) * ft_strlen(sep) + 1);
-	if (buffer == NULL)
+	if (size == 1)
+		st = malloc((a + 1) * sizeof(char));
+	else
+		st = malloc((a + b * (size - 1) + 1) * sizeof(char));
+	if (st == NULL)
 		return (NULL);
-	buffer[0] = '\0';
-	i = -1;
-	while (++i < size)
-	{
-		ft_strcat(buffer, strs[i]);
-		if (i < size - 1)
-			ft_strcat(buffer, sep);
-	}
-	return (buffer);
+	ft_fill(size, strs, st, sep);
+	return (st);
 }
+/*#include<stdio.h>
+int main()
+{
+	char *stt[] = {"abc"};
+	char sp[] = "---";
+	printf("%s \n", ft_strjoin(1, stt, sp));
+	return 0;
+}*/

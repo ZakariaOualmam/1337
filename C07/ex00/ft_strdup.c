@@ -3,39 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idouiri <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: zoualmam <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/25 19:02:27 by idouiri           #+#    #+#             */
-/*   Updated: 2026/07/25 20:13:46 by idouiri          ###   ########.fr       */
+/*   Created: 2026/08/06 21:19:43 by zoualmam          #+#    #+#             */
+/*   Updated: 2026/08/06 21:19:53 by zoualmam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <stdlib.h>
-
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 
 char	*ft_strdup(char *src)
 {
-	char	*str;
-	int		len;
 	int		i;
+	char	*dest;
 
-	len = ft_strlen(src);
-	str = malloc(len + 1);
 	i = 0;
-	if (str == NULL)
-		return (NULL);
-	while (i < len)
+	while (src[i])
 	{
-		str[i] = src[i];
 		i++;
 	}
-	return (str);
+	dest = malloc((i + 1) * sizeof(*dest));
+	if (dest == NULL)
+		return (NULL);
+	while (i >= 0)
+	{
+		dest[i] = src[i];
+		i--;
+	}
+	return (dest);
 }
+/*int main()
+{
+    char source[] = "Geldouch";
+
+    char* target = ft_strdup(source);
+
+    printf("%s", target);
+    return 0;
+}*/

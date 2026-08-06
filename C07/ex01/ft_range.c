@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_range.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idouiri <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: zoualmam <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/25 20:18:05 by idouiri           #+#    #+#             */
-/*   Updated: 2026/07/26 08:20:33 by idouiri          ###   ########.fr       */
+/*   Created: 2026/08/06 21:09:34 by zoualmam          #+#    #+#             */
+/*   Updated: 2026/08/06 21:12:42 by zoualmam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,41 @@
 
 int	*ft_range(int min, int max)
 {
-	int	*range;
-	int	i;
+	unsigned int	i;
+	unsigned int	j;
+	int				*arr;
 
+	j = 0;
 	if (min >= max)
 		return (NULL);
-	range = malloc(sizeof (int) * (max - min));
-	if (range == NULL)
+	i = max - min;
+	arr = malloc(i * sizeof(int));
+	if (arr == NULL)
 		return (NULL);
-	i = 0;
-	while (i < max - min)
+	while (j < i)
 	{
-		range[i] = min + i;
+		arr[j] = min;
+		min++;
+		j++;
+	}
+	return (arr);
+}
+/*#include<stdio.h>
+int main (){
+	int a = -12;
+	int b = -22;
+	int *arr1;
+	unsigned int i = 0;
+	arr1 = ft_range(b,a);
+	if (arr1 == NULL)
+	{
+		printf ("no alloc || min >= max \n");
+		return -1;
+	}
+	while (i < (unsigned int)(a - b))
+	{
+		printf("%d \n", *arr1++);
 		i++;
 	}
-	return (range);
-}
+	return 0;
+}*/
